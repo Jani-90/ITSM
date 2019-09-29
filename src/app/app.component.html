@@ -1,0 +1,278 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!--<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+</div>
+<h2>Here are some links to help you start: </h2>
+<ul>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
+  </li>
+  <li>
+    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>-->
+<!--<div *ngIf="isLoggedIn$" >
+        <app-login></app-login>
+</div>-->
+
+
+
+<app-login *ngIf=!message></app-login>
+
+
+
+<div *ngIf=message >
+        <script type="text/typescript">
+            window.location.reload();
+         </script>
+    
+    
+<!--<a (load)="getCurrentUser()">user</a>-->
+<div class="container-fluid">
+  <div class="row">
+    <header class="header">		
+      <div class="title">IT SERVICE MANAGEMENT</div>	<div class="titleTwo">&nbsp;SYSTEM</div>
+      <div class="pics"><img src="" width="50"  border="2"/></div>		
+    </header>
+  </div>
+    
+  <div class="row">
+    <header class="topTitle">
+        <div class="col-sm-6">
+            <div class="userInfo">{{currentUserName}} | {{datetime}}</div>
+        </div>
+        <div class="col-sm-6 float-right"><div class="logIn"><a href = "" (click)="logout()">Log Out</a></div></div>       
+    </header>
+  </div>
+
+  <ng2-slim-loading-bar color="blue"></ng2-slim-loading-bar>
+
+ 
+
+<div class="row">	
+    <div class="col-sm-2 col-md-2" style="background-color:#f2f0f0;">
+         
+        <div class="accordion" id="accordion" >				
+             
+            
+        <div *ngIf="menu_branchUser || menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseExample">
+                             <span class="glyphicon glyphicon-list-alt"></span>Dashboard
+                        </a>
+                </div>
+                <div id="collapseOne" class="collapse show">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <!--<td><a href="?prop_id=333222">Officer Dashboard</a></td>-->
+                            </tr>
+                            <div  *ngIf="menu_branchUser || menu_supervisor || menu_ITOfficer || menu_administrator">
+                                <tr>
+                                    <td><a (load)="LoadScreen()" routerLink="superviserDashboard" class="nav-link" routerLinkActive="active">Dashboard</a> </td>
+                                </tr>
+                            </div>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>	
+
+        <div *ngIf="menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseExample" >
+                                <span class="glyphicon glyphicon-list-alt"></span>Asset Management
+                        </a>
+                </div>
+                <div id="collapseTwo" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="assetRegistration" class="nav-link" routerLinkActive="active">New Asset</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="employee" class="nav-link" routerLinkActive="active">Employee</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="assetModification" class="nav-link" routerLinkActive="active">Asset Modification</a> </td>
+                            </tr>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="menu_branchUser || menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Service Desk
+                        </a>
+                </div>
+                <div id="collapseThree" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 
+                            <div *ngIf="menu_branchUser || menu_administrator" >	
+                                <tr>
+                                    <td><a routerLink="createTicket" class="nav-link" routerLinkActive="active">New Ticket</a> </td>
+                                </tr>
+                            </div>
+                            <div *ngIf=" menu_supervisor || menu_ITOfficer || menu_administrator" >
+                                <tr>
+                                    <td><a routerLink="ticketSubmitted" class="nav-link" routerLinkActive="active">Ticket Submitted</a> </td>
+                                </tr>
+                                <tr>
+                                    <td><a routerLink="ticketReceived" class="nav-link" routerLinkActive="active">Ticket Received</a> </td>
+                                </tr>
+                                <tr>
+                                    <td><a routerLink="ticketOpened" class="nav-link" routerLinkActive="active">Ticket Opened</a> </td>
+                                </tr>	
+                                <tr>
+                                    <td><a routerLink="ticketClosed" class="nav-link" routerLinkActive="active">Ticket Closed</a> </td>
+                                </tr>
+                            </div>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf=" menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Vendor Management
+                        </a>
+                </div>
+                <div id="collapseFour" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="vendor" class="nav-link" routerLinkActive="active">New Vendor</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="agreement" class="nav-link" routerLinkActive="active">New Agreement</a> </td>
+                            </tr>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf=" menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Log Monitoring
+                        </a>
+                </div>
+                <div id="collapseFive" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="log" class="nav-link" routerLinkActive="active">Log Entering</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="logDetail" class="nav-link" routerLinkActive="active">Log Detail</a> </td>
+                            </tr>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf=" menu_supervisor || menu_ITOfficer || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Information Center
+                        </a>
+                </div>
+                <div id="collapseSix" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="assetRegisterReport" class="nav-link" routerLinkActive="active">Asset Register Report</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="ticketReport" class="nav-link" routerLinkActive="active">Ticket Report</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="employeeReport" class="nav-link" routerLinkActive="active">Employee Report</a> </td>
+                            </tr>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf=" menu_supervisor || menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Administration
+                        </a>
+                </div>
+                <div id="collapseSeven" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="makemodel" class="nav-link" routerLinkActive="active">Make & Model</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="codegenerator" class="nav-link" routerLinkActive="active">Asset Code Generator</a> </td>
+                            </tr>
+                            <tr>
+                                <td><a routerLink="location" class="nav-link" routerLinkActive="active">Asset Location</a> </td>
+                            </tr>							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="menu_administrator" >
+            <div class="card">
+                <div class="card-header">                   
+                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="glyphicon glyphicon-list-alt"></span>Access Control
+                        </a>
+                </div>
+                <div id="collapseEight" class="collapse">
+                    <div class="panel-body">
+                        <table class="table"> 	
+                            <tr>
+                                <td><a routerLink="userRole" class="nav-link" routerLinkActive="active">User Role</a> </td>
+                            </tr>
+							
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div>
+    </div>
+
+<div class="col-sm-10 col-md-10" style="background-color:#f2f0f0;">
+        <router-outlet></router-outlet>
+</div>
+
+
+
+</div>
+</div>
+
+</div>

@@ -1,0 +1,212 @@
+<br/>
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Asset Modification</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+
+                <div class="row">
+              <div class="col-sm-5">
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Search By:</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" formControlName="asset_search_by" #asset_search_by (change)="ShowSearchField(asset_search_by.value);resetField();">
+                        <option value="" selected >Select Search Method</option>
+                        <option value="Asset Code" >Asset Code</option>
+                        <option  value="Asset Serial" >Asset Serial</option>
+                        <option  value="Asset Barcode" >Asset Barcode</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div [hidden]="!assetCode" >
+                  <div class="form-group row form-control-sm">
+                      <label class="col-sm-4 col-form-label">Asset Code:</label>
+                      <div class="col-sm-8">
+                        <input type="text"  class="form-control" formControlName="asset_code"  (keyup)="showAsset1(asset_code.value)" #asset_code  />
+                      </div>
+                  </div>
+                </div>
+
+                <div [hidden]="!assetSerial" >
+                  <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Asset Serial:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="asset_serial"  (keyup)="showAsset(asset_serial.value)" #asset_serial />
+                    </div>
+                  </div>
+                </div>
+
+                <div [hidden]="!assetBarcode" >
+                  <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Asset Barcode:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="asset_barcode" (keyup)="showAsset2(asset_barcode.value)"  #asset_barcode />
+                    </div>
+                  </div>
+                </div>
+
+                </div>
+
+                <div class="col-sm-7 " >
+                    <div class="card">
+                        <div class="card-body" style="background-color:#dfeefd">
+                          <h5>Asset Details</h5><br/>
+             
+
+            
+                            <div *ngFor="let ast of astSerial" >
+                              <br/>
+                            <table class="table table-hover">
+                                <tbody >
+                                    <tr >
+                                      <td align="right">Asset Code:</td>
+                                      <td>{{ast.asset_code}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Serial:</td>
+                                      <td>{{ast.asset_serial}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Barcode:</td>
+                                      <td>{{ast.asset_barcode}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Name:</td>
+                                      <td>{{ast.asset_name}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Category:</td>
+                                      <td>{{ast.asset_category}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Type:</td>
+                                      <td>{{ast.asset_type}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td  align="right">Asset Status:</td>
+                                      <td>{{ast.asset_status}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="2" align="center">
+                                          
+                                          <a class="btn btn-primary" [routerLink]="['/assetRegistration/editAsset', ast._id]" >EDIT</a>
+                                      </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                                  
+                        <div *ngFor="let ast1 of astCode" >
+                            <br/>
+                          <table class="table table-hover">
+                              <tbody >
+                                  <tr >
+                                    <td align="right">Asset Code:</td>
+                                    <td>{{ast1.asset_code}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Serial:</td>
+                                    <td>{{ast1.asset_serial}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Barcode:</td>
+                                    <td>{{ast1.asset_barcode}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Name:</td>
+                                    <td>{{ast1.asset_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Category:</td>
+                                    <td>{{ast1.asset_category}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Type:</td>
+                                    <td>{{ast1.asset_type}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td  align="right">Asset Status:</td>
+                                    <td>{{ast1.asset_status}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2" align="center">
+                                        <!--<button class="btn btn-primary"><a  [routerLink]="['/employee/edit', emp._id]" >EDIT</a></button>-->
+                                        <a class="btn btn-primary" [routerLink]="['/assetRegistration/editAsset', ast1._id]" >EDIT</a>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+
+
+                      <div *ngFor="let ast2 of astBarcode" >
+                          <br/>
+                        <table class="table table-hover">
+                            <tbody >
+                                <tr >
+                                  <td align="right">Asset Code:</td>
+                                  <td>{{ast2.asset_code}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Serial:</td>
+                                  <td>{{ast2.asset_serial}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Barcode:</td>
+                                  <td>{{ast2.asset_barcode}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Name:</td>
+                                  <td>{{ast2.asset_name}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Category:</td>
+                                  <td>{{ast2.asset_category}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Type:</td>
+                                  <td>{{ast2.asset_type}}</td>
+                                </tr>
+                                <tr>
+                                  <td  align="right">Asset Status:</td>
+                                  <td>{{ast2.asset_status}}</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="center">
+                                      <!--<button class="btn btn-primary"><a  [routerLink]="['/employee/edit', emp._id]" >EDIT</a></button>-->
+                                      <a class="btn btn-primary" [routerLink]="['/assetRegistration/editAsset', ast2._id]" >EDIT</a>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        
+
+            
+            
+                    
+              
+                            
+                        </div>
+                      </div><br/>
+            
+                </div>
+
+                </div>
+              </form>
+          </div>
+        </div>
+    </div>
+  
+
+      
+      
+</div>
+
+
+

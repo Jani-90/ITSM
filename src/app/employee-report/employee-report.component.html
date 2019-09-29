@@ -1,0 +1,34 @@
+<br/>
+
+<h4>Employee Report</h4>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>#</th>
+          <th>Employee No</th>
+          <th>Employee Name</th>
+          <th>Company</th>
+          <th>Designation</th>
+
+      </tr>
+    </thead>
+    
+    
+    <tbody>
+        <tr *ngFor="let em of empList; let i = index; let SubTickEmp of emp3[i]">
+            
+            <td>{{i+1}}</td>
+            <td>{{ em.employee_no }}</td>
+            <td>{{ em.employee_name }}</td>
+            <td>{{ em.company }}</td>
+            <td>{{em.designation}}</td>
+            
+
+          
+        </tr>
+    </tbody>
+  </table>
+</div>
+

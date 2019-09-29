@@ -1,0 +1,241 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Category</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Category ID:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="category_id" #category_id (onblur)="getCategoryId()" readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Category:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="category_name" #category_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['category_name'].invalid && (angForm.controls['category_name'].dirty || angForm.controls['category_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['category_name'].errors.required" >
+                      Asset Category Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                      <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #category_status />
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="addCategory(category_id.value, category_name.value, category_status.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+      
+      <br/>
+
+      <h4>Asset Type</h4>
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="angForm1" novalidate>
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Asset Type ID:</label>
+                  <div class="col-sm-8" >
+                    <input type="text"  class="form-control" formControlName="type_id" #type_id (onblur)="getTypeId()" readonly />
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Asset Category:</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" formControlName="type_category_name" #type_category_name >
+                        <option  value="" selected >Select Category Name</option>
+                        <option *ngFor="let categoryName of categories" value={{categoryName.category_name}}>
+                                {{ categoryName.category_name }}
+                        </option>
+
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm1.controls['type_category_name'].invalid && (angForm1.controls['type_category_name'].dirty || angForm1.controls['type_category_name'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm1.controls['type_category_name'].errors.required" >
+                    Category Name is required.
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Asset Type:</label>
+                <div class="col-sm-8">
+                  <input type="text"  class="form-control" formControlName="type_name" #type_name />
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm1.controls['type_name'].invalid && (angForm1.controls['type_name'].dirty || angForm1.controls['type_name'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm1.controls['type_name'].errors.required" >
+                  Asset Type is required.
+                </div>
+            </div>
+            <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Code Pattern:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="code_pattern" #code_pattern />
+                    </div>
+                </div>
+            <div class="form-group form-control-sm" *ngIf="angForm1.controls['code_pattern'].invalid && (angForm1.controls['code_pattern'].dirty || angForm1.controls['code_pattern'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm1.controls['code_pattern'].errors.required" >
+                    Asset Code Pattern is required.
+                </div>
+            </div>
+            <div class="form-group row form-control-sm" >
+                
+                    <label class="col-sm-4 col-form-label">Configuration Type:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="configuration_type" #configuration_type >
+                                <option value="" >Select Configuration Type</option>
+                                <option value="N/A" >N/A</option>
+                                <option  value="Configuration" >Configuration</option>
+                                <option  value="Description" >Description</option>
+                        </select>
+
+                    </div>
+                
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm1.controls['configuration_type'].invalid && (angForm1.controls['configuration_type'].dirty || angForm1.controls['configuration_type'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm1.controls['configuration_type'].errors.required" >
+                    Asset Configuration Type is required.
+                </div>
+            </div>
+            
+
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Status:</label>
+                  <div class="col-sm-8">
+                    <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #type_status />
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                  <button type="reset" class="btn btn-primary">RESET</button>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                  <button (click)="addType(type_id.value, type_category_name.value, type_name.value, code_pattern.value, configuration_type.value, type_status.value)" [disabled]="angForm1.pristine || angForm1.invalid" class="btn btn-primary">SAVE</button>
+                </div>
+              </div>
+            
+            </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-7 " >
+        <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Asset Category</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageCategory(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageCategory(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPageCategory(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageCategory(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageCategory(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Asset Category</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let category of pagedItems">
+                          <td>{{ category.category_id }}</td>
+                          <td>{{ category.category_name }}</td>
+                          <td>{{ category.category_status }}</td>
+                          <td><a  [routerLink]="['/codegenerator/edit', category._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Asset Type</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager1.pages && pager1.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageType(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageType(pager1.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager1.pages" [ngClass]="{active:pager1.currentPage === page}">
+                    <a (click)="setPageType(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageType(pager1.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageType(pager1.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Asset Category</th>
+                        <th>Asset Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let type of pagedItems1">
+                          <td>{{ type.type_id }}</td>
+                          <td>{{ type.type_category_name }}</td>
+                          <td>{{ type.type_name }}</td>
+                          <td>{{ type.type_status }}</td>
+                          <td><a  [routerLink]="['/codegenerator/type/edit', type._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+    </div>
+      
+      
+</div>
+

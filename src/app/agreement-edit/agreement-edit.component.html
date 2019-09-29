@@ -1,0 +1,196 @@
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Agreement Modification</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Agreement No:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="agreement_no" #agreement_no readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Vendor:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="vendor" #vendor readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Agreement Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="agreement_name" #agreement_name readonly/>
+                  </div>
+              </div>
+
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Agreement Type:</label>
+                <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="agreement_type" #agreement_type readonly/>
+                </div>
+            </div>
+
+            <div class="form-group row form-control-sm" >
+              <label class="col-sm-4 col-form-label">Agreement Category:</label>
+              <div class="col-sm-8">
+                  <input type="text"  class="form-control" formControlName="agreement_category" #agreement_category readonly/>
+              </div>
+          </div>
+
+          <div class="form-group row form-control-sm" >
+            <label class="col-sm-4 col-form-label">Start Date:</label>
+            <div class="col-sm-8">
+              <input type="date"  class="form-control" formControlName="start_date" #start_date readonly />
+            </div>
+        </div>
+
+        <div class="form-group row form-control-sm" >
+          <label class="col-sm-4 col-form-label">Renewal Period:</label>
+          <div class="col-sm-8">
+            <input type="text"  class="form-control" formControlName="renewal_period" #renewal_period readonly />
+          </div>
+      </div>
+
+        <div class="form-group row form-control-sm" >
+          <label class="col-sm-4 col-form-label">End Date:</label>
+          <div class="col-sm-8">
+            <input type="date"  class="form-control" formControlName="end_date" #end_date readonly/>
+          </div>
+        </div>
+
+        <div class="form-group row form-control-sm" >
+            <label class="col-sm-4 col-form-label">Rating:</label>
+            <div class="col-sm-8">
+                <div class="rating" >
+                    <input type="radio" id="star5"  value="5" (click)='onClick(5)' /><label for="star5" title="Excellent">5 stars</label>
+                    <input type="radio" id="star4"  value="4" (click)='onClick(4)' /><label for="star4" title="Good">4 stars</label>
+                    <input type="radio" id="star3"  value="3"  (click)='onClick(3)' /><label for="star3" title="Fair">3 stars</label>
+                    <input type="radio" id="star2"  value="2" (click)='onClick(2)' /><label for="star2" title="Poor">2 stars</label>
+                    <input type="radio" id="star1"  value="1" (click)='onClick(1)' /><label for="star1" title="Very Poor">1 star</label>
+                  </div>
+
+                  <input type="hidden"  class="form-control" formControlName="vendor_rating" value="" #vendor_rating/>
+            </div>
+        </div><br/>
+
+        <div class="form-group row form-control-sm" >
+            <label class="col-sm-4 col-form-label">Comment:</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" formControlName="agreement_comment" #agreement_comment ></textarea>
+            </div>
+          </div><br/>
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-4 col-form-label">Status:</label>
+              <div class="col-sm-8">   
+                  <select class="form-control" formControlName="agreement_status" #agreement_status >
+                      <option value="ACTIVE" >ACTIVE</option>
+                      <option  value="INACTIVE" >INACTIVE</option>
+                    </select>
+              </div>
+          </div>
+          <div class="form-group row form-control-sm">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+              <button (click)="UpdateAgreement(vendor_rating.value, agreement_comment.value, agreement_status.value);AddRating(vendor.value, vendor_rating.value, agreement_comment.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+              
+              </form>
+          </div>
+        </div>
+
+        <br/>    
+
+    </div>
+  
+    <div class="col-sm-6">
+        <h4>Agreement Renewal</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm1" novalidate>
+
+                <input type="hidden"  class="form-control" formControlName="agreement_no1" #agreement_no1 />
+                <input type="hidden"  class="form-control" formControlName="renewal_period1" #renewal_period1 />
+                <input type="hidden"  class="form-control" formControlName="vendor1" #vendor1 />
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Renew Date:</label>
+                    <div class="col-sm-8">
+                      <input type="date"  class="form-control" formControlName="renew_date" #renew_date (change)="CalcEndDate(renew_date.value, renewal_period1.value)" />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm1.controls['renew_date'].invalid && (angForm1.controls['renew_date'].dirty || angForm1.controls['renew_date'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm1.controls['renew_date'].errors.required" >
+                    Renew Date is required.
+                  </div>
+              </div>
+
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">New End Date:</label>
+                  <div class="col-sm-8">
+                    <input type="date"  class="form-control" formControlName="new_end_date" #new_end_date readonly/>
+                  </div>
+                </div>
+
+              <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Rating:</label>
+                  <div class="col-sm-8">
+                      <div class="rating1" >
+                          <input type="radio" id="star51"  value="5" (click)='onClick1(5)' /><label for="star51" title="Excellent">5 stars</label>
+                          <input type="radio" id="star41"  value="4" (click)='onClick1(4)' /><label for="star41" title="Good">4 stars</label>
+                          <input type="radio" id="star31"  value="3"  (click)='onClick1(3)' /><label for="star31" title="Fair">3 stars</label>
+                          <input type="radio" id="star21"  value="2" (click)='onClick1(2)' /><label for="star21" title="Poor">2 stars</label>
+                          <input type="radio" id="star11"  value="1" (click)='onClick1(1)' /><label for="star11" title="Very Poor">1 star</label>
+                        </div>
+
+                        <input type="hidden"  class="form-control" formControlName="vendor_rating1" value="" #vendor_rating1/>
+                  </div>
+              </div><br/>
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Comment:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" formControlName="agreement_comment1" #agreement_comment1 ></textarea>
+                    </div>
+                  </div><br/>
+
+
+              <div class="form-group row form-control-sm">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                  <button type="reset" class="btn btn-primary">RESET</button>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                  <button (click)="AddRenewal(agreement_no1.value, renew_date.value, new_end_date.value, vendor_rating1.value, agreement_comment1.value);AddRating(vendor1.value, vendor_rating1.value, agreement_comment1.value)" [disabled]="angForm1.pristine || angForm1.invalid" class="btn btn-primary">RENEW</button>
+                </div>
+              </div>
+              
+              </form>
+          </div>
+        </div>
+
+        <br/>
+
+
+      
+
+    </div>
+  
+
+      
+      
+      
+</div>
+
+
+

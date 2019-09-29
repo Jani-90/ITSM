@@ -1,0 +1,337 @@
+<br/>
+<div class="row">
+    
+  <div class="col-sm-12" >
+
+  <h4>Asset Registration</h4>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="angForm" novalidate>
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-2 col-form-label">Asset Category:</label>
+              <div class="col-sm-4" >
+                <select class="form-control" formControlName="asset_category" #asset_category (change)="showTypes(asset_category.value)">
+                    <option  value="" selected >Select Asset Category</option>
+                    <option *ngFor="let categoryName of categories" value={{categoryName.category_name}}>
+                            {{ categoryName.category_name }}
+                    </option>
+                </select>
+              </div>
+              <label class="col-sm-2 col-form-label">Asset Type:</label>
+              <div class="col-sm-4">
+                <select class="form-control" formControlName="asset_type" #asset_type (change)="showAssetCode1(asset_type.value);showfields(asset_type.value)">
+                    <option  value="" selected >Select Asset Type</option>
+                    <option *ngFor="let typeName of types" value={{typeName.type_name}}>
+                            {{ typeName.type_name }}
+                    </option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_category'].invalid && (angForm.controls['asset_category'].dirty || angForm.controls['asset_category'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_category'].errors.required" >
+                Asset Category Name is required.
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_type'].invalid && (angForm.controls['asset_type'].dirty || angForm.controls['asset_type'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_type'].errors.required" >
+                Asset Type Name is required.
+              </div>
+          </div>
+
+          <div class="form-group row form-control-sm" >
+              <label class="col-sm-2 col-form-label">Asset Code:</label>
+              <div class="col-sm-4">
+                <input type="text"  class="form-control" formControlName="asset_code" #asset_code readonly/>
+              </div>
+              <label class="col-sm-2 col-form-label">Make & Model:</label>
+              <div class="col-sm-2">
+                  <select class="form-control" formControlName="asset_make" #asset_make (change)="showModels(asset_make.value)">
+                      <option  value="" selected >Asset Make</option>
+                      <option *ngFor="let makeName of makes" value={{makeName.make_name}}>
+                              {{ makeName.make_name }}
+                      </option>
+                  </select>
+              </div>
+              <div class="col-sm-2">
+                  <select class="form-control" formControlName="asset_model" #asset_model >
+                      <option  value="" selected >Asset Model</option>
+                      <option *ngFor="let modelName of models" value={{modelName.model_name}}>
+                              {{ modelName.model_name }}
+                      </option>
+                  </select>
+              </div>
+          </div>
+
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-2 col-form-label">Asset Serial:</label>
+              <div class="col-sm-4">
+                  <input type="text"  class="form-control" formControlName="asset_serial" #asset_serial (keyup)="CheckSerialValidity(asset_serial.value)"/>
+              </div>
+              <label class="col-sm-2 col-form-label">Asset Barcode:</label>
+              <div class="col-sm-4">
+                  <input type="text"  class="form-control" formControlName="asset_barcode" #asset_barcode  (keyup)="CheckSerialValidity1(asset_barcode.value)"/>
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_serial'].invalid && (angForm.controls['asset_serial'].dirty || angForm.controls['asset_serial'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_serial'].errors.required" >
+                Asset Serial is required.
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_barcode'].invalid && (angForm.controls['asset_barcode'].dirty || angForm.controls['asset_barcode'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_barcode'].errors.required" >
+                Asset Barcode is required.
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="duplicateAlert" class="alert alert-danger ">
+                  Entered Asset Serial is already Registered.
+            </div>
+            <div class="form-group form-control-sm" *ngIf="duplicateAlert1" class="alert alert-danger ">
+                    Entered Asset Barcode is already Registered.
+              </div>
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-2 col-form-label">Asset Name:</label>
+              <div class="col-sm-4">
+                  <input type="text"  class="form-control" formControlName="asset_name" #asset_name />
+              </div>
+              <label class="col-sm-2 col-form-label">Asset Classification:</label>
+              <div class="col-sm-4">
+                  <select class="form-control" formControlName="asset_classification" #asset_classification >
+                      <option  value="" selected >Select Asset Classification</option>
+                      <option  value="Operations Sensitive"  >Operations Sensitive</option>
+                      <option  value="Operations Non Sensitive"  >Operations Non Sensitive</option>
+                      <option  value="Executive"  >Executive</option>
+                      <option  value="Private PLC Sensitive"  >Private PLC Sensitive</option>
+                      <option  value="Private PLC Non Sensitive"  >Private PLC Non Sensitive</option>
+                  </select>
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_name'].invalid && (angForm.controls['asset_name'].dirty || angForm.controls['asset_name'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_name'].errors.required" >
+                Asset Description is required.
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_classification'].invalid && (angForm.controls['asset_classification'].dirty || angForm.controls['asset_classification'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['asset_classification'].errors.required" >
+                Asset Classification is required.
+              </div>
+          </div>
+
+          <div [hidden]="!IThardware" >
+
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-2 col-form-label">Asset Location:</label>
+                  <div class="col-sm-4" >
+                    <select class="form-control" formControlName="asset_location" #asset_location >
+                        <option  value="" selected >Select Asset Location</option>
+                        <option *ngFor="let locationName of locations" value={{locationName.location_name}}>
+                                {{ locationName.location_name }}
+                        </option>
+                    </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label">Asset Owner:</label>
+                  <div class="col-sm-4">
+                    <select class="form-control" formControlName="asset_owner_IT" #asset_owner_IT >
+                        <option  value="" selected >Select Asset Owner</option>
+                        <option *ngFor="let empName of employees" value={{empName.employee_name}}>
+                                {{ empName.employee_name }}
+                        </option>
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_location'].invalid && (angForm.controls['asset_location'].dirty || angForm.controls['asset_location'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_location'].errors.required" >
+                    Asset Location is required.
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_owner_IT'].invalid && (angForm.controls['asset_owner_IT'].dirty || angForm.controls['asset_owner_IT'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_owner_IT'].errors.required" >
+                    Asset Owner is required.
+                  </div>
+              </div>
+
+          </div>
+
+
+          <div [hidden]="!BranchHardware" >
+
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-2 col-form-label">Branch:</label>
+                  <div class="col-sm-4" >
+                    <select class="form-control" formControlName="asset_branch" #asset_branch >
+                        <option  value="" selected >Select Branch</option>
+                        <option *ngFor="let branchName of branches" value={{branchName.branch_name}}>
+                                {{ branchName.branch_name }}
+                        </option>
+                    </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label">Asset Owner:</label>
+                  <div class="col-sm-4">
+                      <input type="text"  class="form-control" formControlName="asset_owner_branch" #asset_owner_branch placeholder="Emp No"  (blur)="searchEmployee(asset_owner_branch.value)"/>
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_branch'].invalid && (angForm.controls['asset_branch'].dirty || angForm.controls['asset_branch'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_branch'].errors.required" >
+                    Branch is required.
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_owner_branch'].invalid && (angForm.controls['asset_owner_branch'].dirty || angForm.controls['asset_owner_branch'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_owner_branch'].errors.required" >
+                    Asset Owner is required.
+                  </div>
+              </div>
+
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-2 col-form-label">Company:</label>
+                  <div class="col-sm-4" >
+                      <select class="form-control" formControlName="asset_company" #asset_company >
+                          <option value="" selected >Select Company</option>
+                          <option value="PLC" >People's Leasing & Finance PLC</option>
+                          <option  value="PIL" >People's Insurance PLC</option>
+                          <option  value="PML" >People's Microfinance Limited</option>
+                          <option  value="Fleet" >People's Leasing Fleet Management Limited</option>
+                          <option  value="PPD" >People's Leasing Property Development Limited</option>
+                        </select>
+                  </div>
+    
+                <div class="col-sm-6"  *ngFor="let employee of emp" class="alert alert-info ">{{employee.employee_name}} - {{employee.designation}} <br/> {{employee.employee_branch}} </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_company'].invalid && (angForm.controls['asset_company'].dirty || angForm.controls['asset_company'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_company'].errors.required" >
+                    Company is required.
+                  </div>
+              </div><br/><br/>
+
+          </div>
+
+          <div [hidden]="!Warrant" >
+
+            <div class="form-group row form-control-sm">
+                <label class="col-sm-2 col-form-label">Purchased Date:</label>
+                <div class="col-sm-4" >
+                        <input type="date"  class="form-control" formControlName="purchased_date" #purchased_date  />
+
+                </div>
+                <label class="col-sm-2 col-form-label">Warranty Period:</label>
+                <div class="col-sm-4">
+                    <select class="form-control" formControlName="warranty_period" #warranty_period >
+                        <option value="" selected >Select Warranty Period</option>
+                        <option value="1 Month" >1 Month</option>
+                        <option  value="3 Months" >3 Months</option>
+                        <option  value="6 Months" >6 Months</option>
+                        <option  value="1 Year" >1 Year</option>
+                        <option  value="2 Year" >2 Year</option>
+                        <option  value="3 Year" >3 Year</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+          <div [hidden]="!Configuration" >
+
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-2 col-form-label">Processor:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="processor" #processor />
+                    </div>
+                    <label class="col-sm-2 col-form-label">RAM:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="RAM" #RAM />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['processor'].invalid && (angForm.controls['processor'].dirty || angForm.controls['processor'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['processor'].errors.required" >
+                        Processor is required.
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['RAM'].invalid && (angForm.controls['RAM'].dirty || angForm.controls['RAM'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['RAM'].errors.required" >
+                        RAM is required.
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-2 col-form-label">Hard Disk:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="hard_disk" #hard_disk />
+                    </div>
+                    <label class="col-sm-2 col-form-label">Display:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="display" #display />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['hard_disk'].invalid && (angForm.controls['hard_disk'].dirty || angForm.controls['hard_disk'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['hard_disk'].errors.required" >
+                        Hard Disk is required.
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['display'].invalid && (angForm.controls['display'].dirty || angForm.controls['display'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['display'].errors.required" >
+                        Display is required.
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-2 col-form-label">Installed S/W:</label>
+                    <div class="col-sm-4">
+                        <textarea  class="form-control" formControlName="installed_sw" #installed_sw ></textarea>
+                    </div>
+
+                    <label class="col-sm-2 col-form-label">OS:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="os" #os />
+                    </div>
+
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['os'].invalid && (angForm.controls['os'].dirty || angForm.controls['os'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['os'].errors.required" >
+                        OS is required.
+                    </div>
+                </div>
+
+                <br/>
+
+          </div>
+
+
+          <div [hidden]="!Description" >
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-2 col-form-label">Description:</label>
+                    <div class="col-sm-10">
+                        <textarea   class="form-control"  formControlName="description" #description></textarea>
+                    </div>
+                </div>
+                <br/>
+          </div>
+
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-2 col-form-label">Status:</label>
+              <div class="col-sm-4">
+                <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #asset_status />
+              </div>
+          </div>
+          <div class="form-group row form-control-sm">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <button (click)="addAsset(asset_category.value, asset_type.value, asset_code.value, asset_make.value, asset_model.value, asset_serial.value, asset_barcode.value, asset_name.value, asset_classification.value, asset_location.value, asset_owner_IT.value, asset_branch.value, asset_owner_branch.value,  asset_company.value, processor.value, RAM.value, hard_disk.value, display.value, os.value, installed_sw.value, description.value, asset_status.value, purchased_date.value, warranty_period.value)"  class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+        
+        </form>
+    </div>
+  </div>
+      
+      
+  </div>    
+</div>
+
+

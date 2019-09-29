@@ -1,0 +1,128 @@
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Vendor Infromation</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Vendor Code:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="vendor_code" #vendor_code (onblur)="getVendorCode()" readonly />
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Vendor Name:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="vendor_name" #vendor_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['vendor_name'].invalid && (angForm.controls['vendor_name'].dirty || angForm.controls['vendor_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['vendor_name'].errors.required" >
+                      Vendor Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Vendor Address:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="vendor_address" #vendor_address />
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['vendor_address'].invalid && (angForm.controls['vendor_address'].dirty || angForm.controls['vendor_address'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['vendor_address'].errors.required" >
+                    Vendor Address is required.
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Vendor Contact No 1:</label>
+                <div class="col-sm-8">
+                  <input type="text"  class="form-control" formControlName="vendor_contact_no1" #vendor_contact_no1 />
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm.controls['vendor_contact_no1'].invalid && (angForm.controls['vendor_contact_no1'].dirty || angForm.controls['vendor_contact_no1'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm.controls['vendor_contact_no1'].errors.required" >
+                  Vendor Contact Number is required.
+                </div>
+
+            </div>
+            <div class="form-group row form-control-sm" >
+              <label class="col-sm-4 col-form-label">Vendor Contact No 2:</label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" formControlName="vendor_contact_no2" #vendor_contact_no2 />
+              </div>
+            </div>
+
+
+            <div class="form-group row form-control-sm" >
+              <label class="col-sm-4 col-form-label">Vendor Email:</label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" formControlName="vendor_email" #vendor_email />
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['vendor_email'].invalid && (angForm.controls['vendor_email'].dirty || angForm.controls['vendor_email'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['vendor_email'].errors.required" >
+                Vendor Email is required.
+              </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Contact Person:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="contact_person" #contact_person />
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Telephone No:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="telephone_no" #telephone_no />
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Mobile No:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="mobile_no" #mobile_no />
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Email:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="email" #email />
+                    </div>
+                </div>
+            </div>
+          </div>
+          <br/>
+          
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-4 col-form-label">Status:</label>
+              <div class="col-sm-8">
+
+                <select class="form-control" formControlName="vendor_status" #vendor_status >
+                  <option value="ACTIVE" >ACTIVE</option>
+                  <option  value="INACTIVE" >INACTIVE</option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group row form-control-sm">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+              <button (click)="updateVendor(vendor_code.value, vendor_name.value, vendor_address.value, vendor_contact_no1.value, vendor_contact_no2.value, vendor_email.value, contact_person.value, telephone_no.value, mobile_no.value, email.value, vendor_status.value )"  class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+              
+              </form>
+          </div>
+        </div>
+
+    
+
+    </div>

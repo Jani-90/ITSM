@@ -1,0 +1,144 @@
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Employees</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Asset Category:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control"   value="Human Information Asset" readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Type:</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" formControlName="employee_type" #employee_type >
+                        <option value="" selected >Select Employee Type</option>
+                        <option value="ICT Staff" >ICT Staff</option>
+                        <option  value="Branch Staff" >Branch Staff</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['employee_type'].invalid && (angForm.controls['employee_type'].dirty || angForm.controls['employee_type'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['employee_type'].errors.required" >
+                      Employee Type is required.
+                    </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Employee No:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="employee_no"   #employee_no />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['employee_no'].invalid && (angForm.controls['employee_no'].dirty || angForm.controls['employee_no'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['employee_no'].errors.required" >
+                    Employee No is required.
+                  </div>
+              </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Employee Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="employee_name"   #employee_name />
+                  </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['employee_name'].invalid && (angForm.controls['employee_name'].dirty || angForm.controls['employee_name'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['employee_name'].errors.required" >
+                    Employee Name is required.
+                  </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Designation:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="designation"   #designation />
+                  </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Company:</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" formControlName="company" #company >
+                      <option value="" selected >Select Company</option>
+                      <option value="PLC" >People's Leasing & Finance PLC</option>
+                      <option  value="PIL" >People's Insurance PLC</option>
+                      <option  value="PML" >People's Microfinance Limited</option>
+                      <option  value="Fleet" >People's Leasing Fleet Management Limited</option>
+                      <option  value="PPD" >People's Leasing Property Development Limited</option>
+                    </select>
+                  </div>
+              </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Branch:</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" formControlName="employee_branch" #employee_branch >
+                      <option  value="" selected >Select Branch</option>
+                      <option *ngFor="let branch of branches" value={{branch.branch_name}}>
+                              {{ branch.branch_name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Username:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="username"   #username />
+                  </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['username'].invalid && (angForm.controls['username'].dirty || angForm.controls['username'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['username'].errors.required" >
+                    Username is required.
+                  </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Password:</label>
+                  <div class="col-sm-8">
+                    <input type="password"  class="form-control" formControlName="password"   #password />
+                  </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['password'].errors.required" >
+                    Password is required.
+                  </div>
+                </div>
+
+                <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Status:</label>
+                  <div class="col-sm-8">
+                    
+                    <select class="form-control" formControlName="employee_status" #employee_status >
+                      <option value="ACTIVE" >ACTIVE</option>
+                      <option  value="INACTIVE" >INACTIVE</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="updateEmployee(employee_no.value, employee_name.value, employee_type.value, designation.value, company.value, employee_branch.value, employee_status.value, username.value, password.value)" class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div><br/>
+    </div>
+  
+ 
+      
+      
+</div>
+
+
+

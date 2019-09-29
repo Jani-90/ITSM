@@ -1,0 +1,57 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Make By</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm"> 
+                    <label class="col-sm-4 col-form-label">Asset Make ID:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="make_id" #make_id readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Make Name:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="make_name" #make_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['make_name'].invalid && (angForm.controls['make_name'].dirty || angForm.controls['make_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['make_name'].errors.required" >
+                      Make Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="make_status" #make_status >
+
+                          <option value="ACTIVE" >ACTIVE</option>
+                          <option  value="INACTIVE" >INACTIVE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['make_status'].invalid && (angForm.controls['make_status'].dirty || angForm.controls['make_status'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['make_status'].errors.required" >
+                      Make Status is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="updateMake(make_id.value, make_name.value, make_status.value)"  class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+
+      </div>
+</div>

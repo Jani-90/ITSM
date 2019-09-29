@@ -1,0 +1,38 @@
+<br/>
+
+<h4>Ticket Submitted</h4>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>#</th>
+          <th>Ticket No</th>
+          <th>Asset Serial</th>
+          <th>Sending Branch</th>
+          <th>Sender</th>
+          <th>Sending Date</th>
+          <th>View</th>
+      </tr>
+    </thead>
+    
+    
+    <tbody>
+        <tr *ngFor="let SubTickets of submitTickets; let i = index; let SubTickEmp of emp3[i]">
+            
+            <td>{{i+1}}</td>
+            <td>{{ SubTickets.ticket_no }}</td>
+            <td>{{ SubTickets.asset_serial }}</td>
+            <td>{{ SubTickets.ticket_branch }}</td>
+            <!--<td *ngFor="let SubTickEmp of emp3[i]">{{ SubTickEmp.employee_name }}</td>-->
+            
+            <!--<td *ngFor="let SubTickEmp of empName1">{{ SubTickEmp.employee_name }}</td>-->
+            <td>{{SubTickets.sender_name}}</td>
+            
+            <td>{{ display(SubTickets.ticket_create_date) }}</td>
+            <td><a  [routerLink]="['/ticketSubmitted/view', SubTickets._id]" >View</a></td>
+          
+        </tr>
+    </tbody>
+  </table>
+</div>

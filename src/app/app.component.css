@@ -1,0 +1,90 @@
+
+.glyphicon { margin-right:10px; }
+.panel-body {
+    padding:0px; 
+    font-size:14px;
+}
+.panel-body table tr td { padding-left: 15px }
+.panel-body .table {margin-bottom: 0px; }
+.header{
+	width:100%;
+	height:80px;
+	background-color:#1766a4;
+}
+.panel-group{
+	min-height:475px;
+	font-size:12px;
+}
+.topTitle{
+	width:100%;
+	height:25px;
+	background-color:#6699cc;
+    padding-top:4px;
+    
+}
+.welcome{
+	margin-top:15px;
+	width:90%;
+	height:20px;
+	color:#000;
+	margin-left:15px;
+	margin-bottom:15px;	
+}
+
+
+
+.title{
+	padding-top:18px;
+	padding-left:45px;
+	font-size:25px;
+	color:#FFF;
+	font-weight:bold;
+	float:left;
+	height:40px;
+}
+.titleTwo{
+	padding-top:18px;
+	padding-left:2px;
+	font-size:25px;
+	color:#9bc921;
+	font-weight:bold;
+	float:left;
+	height:40px;
+}
+.logIn{
+	width:20%;	
+    float:right;
+    color:#FFF;	
+    font-size: 13px;	
+}
+ .userInfo{	
+	margin-left:25px;
+	color:#FFF;	
+    float:left;
+    font-size: 13px;	
+}
+.topTitle .logIn a {
+	color:#FFF;
+	text-decoration:none
+}
+.pics{
+	float:right;
+	margin-right:25px;
+	margin-top:7px;
+}
+
+.card-header{
+    background-color:#1766a4;
+    color:#FFF;
+    font-size: 14px;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+

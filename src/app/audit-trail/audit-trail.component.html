@@ -1,0 +1,34 @@
+<br/>
+
+<h4 align="center" >Audit Trail for Asset Code: {{asset}}</h4>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>#</th>
+          <th>Action</th>
+          <th>Done By</th>
+          <th>Create Date</th>
+
+      </tr>
+    </thead>
+    
+    
+    <tbody>
+        <tr *ngFor="let aud of auditLog; let i = index">
+            
+            <td>{{i+1}}</td>
+            <td>{{ aud.action }}</td>
+            <td>{{ aud.create_by_name }}</td>
+            <td>{{ display(aud.create_date) }}</td>
+
+            <!--<div (click)="display(aud.create_date)"><td >{{createDate}}</td></div> -->
+            
+            
+          
+        </tr>
+    </tbody>
+  </table>
+</div>
+

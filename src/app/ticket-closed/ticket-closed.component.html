@@ -1,0 +1,44 @@
+<br/>
+
+<h4>Ticket Closed</h4>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>#</th>
+          <th>Ticket No</th>
+          <th>Asset Serial</th>
+          <th>Sending Branch</th>
+          <th>Sender</th>
+          <th>Submit Date</th>
+          <th>Assignee</th>
+          <th>Closed Date</th>
+          <th>View</th>
+      </tr>
+    </thead>
+    
+    
+    <tbody>
+        <tr *ngFor="let CTickets of closeTickets; let i = index">
+            
+            <td>{{i+1}}</td>
+            <td>{{ CTickets.ticket_no }}</td>
+            <td>{{ CTickets.asset_serial }}</td>
+            <td>{{ CTickets.ticket_branch }}</td>
+            <!--<td *ngFor="let SubTickEmp of emp3[i]">{{ SubTickEmp.employee_name }}</td>-->
+            
+            <!--<td *ngFor="let SubTickEmp of empName1">{{ SubTickEmp.employee_name }}</td>-->
+            <td>{{CTickets.sender_name}}</td>
+            <td>{{ display(CTickets.ticket_create_date) }}</td>
+            <td>{{CTickets.received_by_name}}</td>            
+            <td>{{ display(CTickets.ticket_closing_date) }}</td>
+            <td><a  [routerLink]="['/job/view', CTickets.ticket_no]" >View</a></td>
+          
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

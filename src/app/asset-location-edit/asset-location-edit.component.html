@@ -1,0 +1,58 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Location</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm"> 
+                    <label class="col-sm-4 col-form-label">Location Code:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="location_code" #location_code readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Location Name:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="location_name" #location_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['location_name'].invalid && (angForm.controls['location_name'].dirty || angForm.controls['location_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['location_name'].errors.required" >
+                      Location Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="location_status" #location_status >
+
+                          <option value="ACTIVE" >ACTIVE</option>
+                          <option  value="INACTIVE" >INACTIVE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['location_status'].invalid && (angForm.controls['location_status'].dirty || angForm.controls['location_status'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['location_status'].errors.required" >
+                      Location Status is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="updateLocation(location_code.value, location_name.value, location_status.value)"  class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+
+      </div>
+</div>
+

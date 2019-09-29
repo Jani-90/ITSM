@@ -1,0 +1,100 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Type</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm"> 
+                    <label class="col-sm-4 col-form-label">Asset Type ID:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="type_id" #type_id readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Category:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="type_category_name" #type_category_name >
+                            <option  value="" selected >Select Category Name</option>
+                            <option *ngFor="let categoryName of categories" value={{categoryName.category_name}}>
+                                    {{ categoryName.category_name }}
+                            </option>
+    
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['type_category_name'].invalid && (angForm.controls['type_category_name'].dirty || angForm.controls['type_category_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['type_category_name'].errors.required" >
+                        Asset Category Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Type:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="type_name" #type_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['type_name'].invalid && (angForm.controls['type_name'].dirty || angForm.controls['type_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['type_name'].errors.required" >
+                      Asset Type is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                        <label class="col-sm-4 col-form-label">Asset Code Pattern:</label>
+                        <div class="col-sm-8">
+                          <input type="text"  class="form-control" formControlName="code_pattern" #code_pattern />
+                        </div>
+                    </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['code_pattern'].invalid && (angForm.controls['code_pattern'].dirty || angForm.controls['code_pattern'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['code_pattern'].errors.required" >
+                        Asset Code Pattern is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                
+                    <label class="col-sm-4 col-form-label">Configuration Type:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="configuration_type" #configuration_type >
+                                <option value="" >Select Configuration Type</option>
+                                <option value="N/A" >N/A</option>
+                                <option  value="Configuration" >Configuration</option>
+                                <option  value="Description" >Description</option>
+                        </select>
+
+                    </div>
+                
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['configuration_type'].invalid && (angForm.controls['configuration_type'].dirty || angForm.controls['configuration_type'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['configuration_type'].errors.required" >
+                        Asset Configuration Type is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="type_status" #type_status >
+
+                          <option value="ACTIVE" >ACTIVE</option>
+                          <option  value="INACTIVE" >INACTIVE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="updateType(type_id.value, type_category_name.value, type_name.value, code_pattern.value, configuration_type.value, type_status.value)"  class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+
+      </div>
+</div>
+

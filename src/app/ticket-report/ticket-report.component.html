@@ -1,0 +1,79 @@
+<br/>
+<div class="row">
+  <div class="col-sm-12">
+        <h4>Ticket Report</h4>
+
+        <form [formGroup]="angForm" novalidate>
+          <div class="card">
+            <div class="card-body">
+
+              <div class="form-group row form-control-sm">
+                  <div class="col-sm-1" ></div>
+
+                  <label class="col-sm-1 col-form-label" align="right">From:</label>
+                  <div class="col-sm-3">
+                    <input type="date"  class="form-control" formControlName="from_date" #from_date />
+                  </div>
+                  <label class="col-sm-1 col-form-label" align="right">To:</label>
+                  <div class="col-sm-3">
+                    <input type="date"  class="form-control" formControlName="to_date" #to_date />
+                  </div>
+                  <div class="col-sm-2">
+                    <button (click)="searchTicket(from_date.value, to_date.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SEARCH</button>
+                  </div>
+                  <div class="col-sm-1" ></div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['from_date'].invalid && (angForm.controls['from_date'].dirty || angForm.controls['from_date'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm.controls['from_date'].errors.required" >
+                  Date Range is required.
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm.controls['to_date'].invalid && (angForm.controls['to_date'].dirty || angForm.controls['to_date'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['to_date'].errors.required" >
+                Date Range is required.
+              </div>
+          </div>
+
+            </div>
+          </div>
+        </form><br/>
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Ticket No</th>
+                  <th>Asset Serial</th>
+                  <th>Sending Branch</th>
+                  <th>Submit Date</th>
+                  <th>Ticket Status</th>
+                  
+              </tr>
+            </thead>
+            
+            
+            <tbody>
+                <tr *ngFor="let tic of tickets; let i = index">
+                    
+                    <td>{{i+1}}</td>
+                    <td>{{ tic.ticket_no }}</td>
+                    <td>{{ tic.asset_serial }}</td>
+                    <td>{{ tic.ticket_branch }}</td>
+                    <td>{{ display(tic.ticket_create_date) }}</td>                  
+                    <td>{{ tic.ticket_status }}</td>
+
+                  
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

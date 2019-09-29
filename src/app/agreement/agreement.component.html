@@ -1,0 +1,195 @@
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>New Agreement</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Agreement No:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="agreement_no" #agreement_no readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Vendor:</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" formControlName="vendor" #vendor >
+                        <option  value="" selected >Select Vendor</option>
+                        <option *ngFor="let vnd of vendors" value={{vnd.vendor_name}}>
+                          {{ vnd.vendor_name }}
+                        </option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['vendor'].invalid && (angForm.controls['vendor'].dirty || angForm.controls['vendor'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['vendor'].errors.required" >
+                      Vendor is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Agreement Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text"  class="form-control" formControlName="agreement_name" #agreement_name />
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['agreement_name'].invalid && (angForm.controls['agreement_name'].dirty || angForm.controls['agreement_name'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['agreement_name'].errors.required" >
+                    Agreement Name is required.
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Agreement Type:</label>
+                <div class="col-sm-8">
+                  <select class="form-control" formControlName="agreement_type" #agreement_type >
+                    <option value="" selected >Select Agreement Type</option>
+                    <option value="Permanent" >Permanent</option>
+                    <option  value="Renewal" >Renewal</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm.controls['agreement_type'].invalid && (angForm.controls['agreement_type'].dirty || angForm.controls['agreement_type'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm.controls['agreement_type'].errors.required" >
+                  Agreement Type is required.
+                </div>
+            </div>
+            <div class="form-group row form-control-sm" >
+              <label class="col-sm-4 col-form-label">Agreement Category:</label>
+              <div class="col-sm-8">
+                <select class="form-control" formControlName="agreement_category" #agreement_category >
+                  <option value="" selected >Select Agreement Category</option>
+                  <option value="Hardware" >Hardware</option>
+                  <option  value="Software" >Software</option>
+                  <option  value="Service" >Service</option>
+                  <option  value="Other" >Other</option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['agreement_category'].invalid && (angForm.controls['agreement_category'].dirty || angForm.controls['agreement_category'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['agreement_category'].errors.required" >
+                Agreement Category is required.
+              </div>
+          </div>
+          <div class="form-group row form-control-sm" >
+            <label class="col-sm-4 col-form-label">Start Date:</label>
+            <div class="col-sm-8">
+              <input type="date"  class="form-control" formControlName="start_date" #start_date (change)="resetField()" />
+            </div>
+        </div>
+        <div class="form-group form-control-sm" *ngIf="angForm.controls['start_date'].invalid && (angForm.controls['start_date'].dirty || angForm.controls['start_date'].touched)" class="alert alert-danger ">
+          <div *ngIf="angForm.controls['start_date'].errors.required" >
+            Start Date is required.
+          </div>
+      </div>
+        <div class="form-group row form-control-sm" >
+          <label class="col-sm-4 col-form-label">Renewal Period:</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="renewal_period" #renewal_period (change)="CalcEndDate(start_date.value, renewal_period.value)">
+              <option value="" selected >Select Period</option>
+              <option value="One Month" >One Month</option>
+              <option  value="Six Months" >Six Months</option>
+              <option  value="One Year" >One Year</option>
+              <option  value="Two Years" >Two Years</option>
+              <option  value="Five Years" >Five Years</option>
+            </select>
+          </div>
+      </div>
+      <div class="form-group form-control-sm" *ngIf="angForm.controls['renewal_period'].invalid && (angForm.controls['renewal_period'].dirty || angForm.controls['renewal_period'].touched)" class="alert alert-danger ">
+        <div *ngIf="angForm.controls['renewal_period'].errors.required" >
+          Renewal Period is required.
+        </div>
+    </div>
+        <div class="form-group row form-control-sm" >
+          <label class="col-sm-4 col-form-label">End Date:</label>
+          <div class="col-sm-8">
+            <input type="date"  class="form-control" formControlName="end_date" #end_date readonly/>
+          </div>
+        </div>
+
+          <div class="form-group row form-control-sm">
+              <label class="col-sm-4 col-form-label">Status:</label>
+              <div class="col-sm-8">
+                <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #agreement_status />
+              </div>
+          </div>
+          <div class="form-group row form-control-sm">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+              <button (click)="addAgreement(agreement_no.value, vendor.value, agreement_name.value, agreement_type.value, agreement_category.value, start_date.value, end_date.value, renewal_period.value, agreement_status.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+              
+              </form>
+          </div>
+        </div>
+
+        <br/>
+
+
+      
+
+    </div>
+  
+    <div class="col-sm-6 " >
+        <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Agreement</h4><br/>
+ 
+           
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageLocation(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageLocation(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPageLocation(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageLocation(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageLocation(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>Agreement No</th>
+                        <th>Agreement Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let agt of pagedItems">
+                          <td>{{ agt.agreement_no }}</td>
+                          <td>{{ agt.agreement_name }}</td>
+                          <td>{{ agt.agreement_status }}</td>
+                          <td><a  [routerLink]="['/agreement/edit', agt._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+
+          <br/>
+
+
+
+    </div>
+      
+      
+</div>
+
+

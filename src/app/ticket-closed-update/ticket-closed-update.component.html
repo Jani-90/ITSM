@@ -1,0 +1,114 @@
+<br/>
+
+<h4 align="center" >Ticket No : {{ticketNo}}</h4>
+
+<div class="card">
+  <div class="card-body" >
+    <div class="table-responsive">
+      <table class="table" *ngFor="let asst of asset">
+          <tr>
+            <th colspan="4" class="table-secondary">Asset Details</th>
+          </tr>
+          <tr>
+              <th>Asset Serial</th>
+              <td>{{asst.asset_serial}}</td>
+              <th>Asset Barcode</th>
+              <td>{{asst.asset_barcode}}</td>
+          </tr>
+          <tr>
+            <th>Asset Type</th>
+            <td>{{asst.asset_type}}</td>
+            <th>Asset Code</th>
+            <td>{{asst.asset_code}}</td>
+          </tr>
+          <tr>
+            <th>Asset Make</th>
+            <td>{{asst.asset_make}}</td>
+            <th>Asset Model</th>
+            <td>{{asst.asset_model}}</td>
+          </tr>
+          <tr>
+            <th colspan="4" class="table-secondary">Ticket Details</th>
+          </tr>
+          
+          <tr >
+              <th>Sending Branch</th>
+              <td>{{sendingBranch}}</td>
+              <th>Criticality Rating</th>
+              <td>{{criticalityRating}}</td>
+          </tr>
+          
+          <tr>
+            <th>Sender</th>
+            <td><div *ngFor="let e2 of emp2" >{{e2.employee_name}}<br/>{{e2.designation}}
+              <br/>{{e2.employee_branch}}</div></td>
+            <th>Authorized By</th>
+            <td><div *ngFor="let e1 of emp1" >{{e1.employee_name}}<br/>{{e1.designation}}
+              <br/>{{e1.employee_branch}}</div></td>
+          </tr>
+          <tr>
+            <th>Ticket Submit Date</th>
+            <td>{{ticketCreateDate1}}</td>
+            <th>Identified Issue</th>
+            <td>{{identifiedIssue}}</td>
+          </tr>
+          <tr>
+            <th>Ticket Received By</th>
+            <td><div *ngFor="let e3 of emp3" >{{e3.employee_name}}<br/>{{e3.designation}}
+              <br/>{{e3.employee_branch}}</div></td>
+            <th>Ticket Received Date</th>
+            <td>{{ticketReceivedDate1}}</td>
+          </tr>
+          <tr>
+            <th>Ticket Status</th>
+            <td>{{ticketStatus}}</td>
+            <th></th>
+            <td></td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br/>
+<div [hidden]="!buttonEnabled" > 
+  <div class="card">
+    <div class="card-body" >
+      <form [formGroup]="angForm" novalidate>
+
+          <div class="form-group row form-control-sm" >
+              <div class="col-sm-1"></div>
+              <label class="col-sm-4 col-form-label">Ticket Closing Comment:</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" formControlName="ticket_closing_comment" #ticket_closing_comment ></textarea>
+              </div>
+              <div class="col-sm-1"></div>
+          </div><br/>
+          <div class="form-group form-control-sm" *ngIf="angForm.controls['ticket_closing_comment'].invalid && (angForm.controls['ticket_closing_comment'].dirty || angForm.controls['ticket_closing_comment'].touched)" class="alert alert-danger ">
+            <div *ngIf="angForm.controls['ticket_closing_comment'].errors.required" >
+              Ticket Closing Comment is required.
+            </div>
+          </div>
+
+
+      <input type="hidden"  class="form-control" formControlName="ticket_no"  #ticket_no value="{{ticketNo}}"/>
+
+      <input type="hidden"  class="form-control" value="Ticket_Closed" #ticket_status  />
+      <input type="hidden"  class="form-control" value="Closed" #tracking_status  />
+
+
+      <div class="form-group row form-control-sm">
+        <div class="col-sm-9"></div>  
+        <div class="col-sm-3">
+          <button (click)="CloseTicket(ticket_closing_comment.value, ticket_no.value, ticket_status.value, tracking_status.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">Close Ticket</button>
+        </div>
+      </div>
+    
+      </form>
+    </div>
+  </div>
+</div>
+<br/>
+    
+
+

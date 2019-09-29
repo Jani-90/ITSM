@@ -1,0 +1,53 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Category</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm"> 
+                    <label class="col-sm-4 col-form-label">Category ID:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="category_id" #category_id readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Asset Category:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="category_name" #category_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['category_name'].invalid && (angForm.controls['category_name'].dirty || angForm.controls['category_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['category_name'].errors.required" >
+                        Asset Category Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="category_status" #category_status >
+
+                          <option value="ACTIVE" >ACTIVE</option>
+                          <option  value="INACTIVE" >INACTIVE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="updateCategory(category_id.value, category_name.value, category_status.value)"  class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+
+      </div>
+</div>
+

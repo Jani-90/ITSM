@@ -1,0 +1,86 @@
+<br/>
+
+<h4 align="center" >Ticket No : {{ticketNo}}</h4>
+
+<div class="card">
+  <div class="card-body" >
+    <div class="table-responsive">
+      <table class="table" *ngFor="let asst of asset">
+          <tr>
+            <th colspan="4" class="table-secondary">Asset Details</th>
+          </tr>
+          <tr>
+              <th>Asset Serial</th>
+              <td>{{asst.asset_serial}}</td>
+              <th>Asset Barcode</th>
+              <td>{{asst.asset_barcode}}</td>
+          </tr>
+          <tr>
+            <th>Asset Type</th>
+            <td>{{asst.asset_type}}</td>
+            <th>Asset Code</th>
+            <td>{{asst.asset_code}}</td>
+          </tr>
+          <tr>
+            <th>Asset Make</th>
+            <td>{{asst.asset_make}}</td>
+            <th>Asset Model</th>
+            <td>{{asst.asset_model}}</td>
+          </tr>
+          <tr>
+            <th colspan="4" class="table-secondary">Ticket Details</th>
+          </tr>
+          
+          <tr >
+              <th>Sending Branch</th>
+              <td>{{sendingBranch}}</td>
+              <th>Criticality Rating</th>
+              <td>{{criticalityRating}}</td>
+          </tr>
+          
+          <tr>
+            <th>Sender</th>
+            <td><div *ngFor="let e2 of emp2" >{{e2.employee_name}}<br/>{{e2.designation}}
+              <br/>{{e2.employee_branch}}</div></td>
+            <th>Authorized By</th>
+            <td><div *ngFor="let e1 of emp1" >{{e1.employee_name}}<br/>{{e1.designation}}
+              <br/>{{e1.employee_branch}}</div></td>
+          </tr>
+          <tr>
+            <th>Ticket Submit Date</th>
+            <td>{{ticketCreateDate1}}</td>
+            <th>Ticket Status</th>
+            <td>{{ticketStatus}}</td>
+          </tr>
+          <tr>
+            <th>Identified Issue</th>
+            <td colspan="3">{{identifiedIssue}}</td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div [hidden]="!buttonEnabled" > 
+  <form [formGroup]="angForm" novalidate>
+
+      <input type="hidden"  class="form-control" formControlName="ticket_no"  #ticket_no value="{{ticketNo}}"/>
+      <input type="hidden"  class="form-control" formControlName="received_by" #received_by value="{{currentEmployeeNo}}" />
+      <input type="hidden"  class="form-control" formControlName="received_by_name" #received_by_name value="{{currentEmployeeName}}" />
+      <input type="hidden"  class="form-control"  #ticket_status value="IT_Received" />
+      <input type="hidden"  class="form-control"  #tracking_status value="Received" />
+
+      <div class="form-group row form-control-sm">
+        <div class="col-sm-9"></div>
+
+        <div class="col-sm-3">
+          <button (click)="ReceiveTicket(ticket_no.value, received_by.value, received_by_name.value, ticket_status.value, tracking_status.value)"class="btn btn-primary">Receive Ticket</button>
+        </div>
+      </div>
+    
+  </form>
+</div>
+<br/>
+    

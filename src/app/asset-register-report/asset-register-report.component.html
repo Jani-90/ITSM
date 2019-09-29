@@ -1,0 +1,97 @@
+<br/>
+<div class="row">
+  <div class="col-sm-12">
+        <h4>Asset Register Report</h4>
+
+    <div class="card">
+        <div class="card-body">
+        <form [formGroup]="angForm" novalidate>
+
+
+              <div class="form-group row form-control-sm">
+                  
+                  <label class="col-sm-2 col-form-label">Asset Category:</label>
+                  <div class="col-sm-3" >
+                      <select class="form-control" formControlName="asset_category" #asset_category (change)="showTypes(asset_category.value)">
+                          <option  value="" selected >Select Asset Category</option>
+                          <option *ngFor="let categoryName of categories" value={{categoryName.category_name}}>
+                                  {{ categoryName.category_name }}
+                          </option>
+                      </select>
+                  </div>
+                  <label class="col-sm-2 col-form-label" align="right">Asset Type:</label>
+                  <div class="col-sm-3">
+                      <select class="form-control" formControlName="asset_type" #asset_type >
+                          <option  value="" selected >Select Asset Type</option>
+                          <option *ngFor="let typeName of types" value={{typeName.type_name}}>
+                                  {{ typeName.type_name }}
+                          </option>
+                      </select>
+                  </div>
+                  <div class="col-sm-2">
+                      <button (click)="searchAsset(asset_category.value, asset_type.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SEARCH</button>
+                  </div>
+
+                  
+              </div>
+
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_category'].invalid && (angForm.controls['asset_category'].dirty || angForm.controls['asset_category'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm.controls['asset_category'].errors.required" >
+                  Asset Category is required.
+                </div>
+              </div>
+
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['asset_type'].invalid && (angForm.controls['asset_type'].dirty || angForm.controls['asset_type'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['asset_type'].errors.required" >
+                    Asset Type is required.
+                  </div>
+              </div>
+
+        </form>
+        </div>
+      </div><br/>
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Asset Code</th>
+                  <th>Asset Name</th>
+                  <th>Asset Serial</th>
+                  <th>Asset Owner</th>
+                  <th>Asset Location</th>
+
+                  
+              </tr>
+            </thead>
+            
+            
+            <tbody>
+                <tr *ngFor="let ast of asset; let i = index">
+                    
+                    <td>{{i+1}}</td>
+                    <td>{{ ast.asset_code }}</td>
+                    <td>{{ ast.asset_name }}</td>
+                    <td>{{ ast.asset_serial }}</td>
+                    <td>{{ ast.asset_owner_IT }} {{ ast.asset_owner_branch}}</td>                  
+                    <td>{{ ast.asset_location }} {{ ast.asset_branch}}</td>
+
+                  
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+</div>
+

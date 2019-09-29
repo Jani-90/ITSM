@@ -1,0 +1,269 @@
+<div class="container"><br/>
+  <h3 *ngFor="let jd of JobDetails">Ticket No: {{jd.ticket_no}} || Job No: {{jd.jobNo}}</h3>
+  <br>
+  <!-- Nav pills -->
+  <ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="pill" href="#quotation">Quotation</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#approval">Approval</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#payment">Payment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#close">Close</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="quotation" class="container tab-pane active"><br>
+      <h4>Quotation Information</h4>
+      <div class="card">
+          <div class="card-body" >
+              <form [formGroup]="angForm1" novalidate>
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Quotation No:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="quotation_no" #quotation_no (onblur)="getNextQuotationNo()" readonly/>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Reference No:</label>
+                      <div class="col-sm-4">
+                          <input type="text"  class="form-control" formControlName="quotation_refNo" #quotation_refNo />
+                      </div>
+                  </div>
+
+
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Quotation Amount:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="quotation_amount" #quotation_amount />
+                      </div>
+                      <label class="col-sm-2 col-form-label">Quotation Date:</label>
+                      <div class="col-sm-4">
+                          <input type="date"  class="form-control" formControlName="quotation_date" #quotation_date />
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm1.controls['quotation_amount'].invalid && (angForm1.controls['quotation_amount'].dirty || angForm1.controls['quotation_amount'].touched)" class="alert alert-danger ">
+                      <div *ngIf="angForm1.controls['quotation_amount'].errors.required" >
+                        Quotation Amount is required.
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm1.controls['quotation_date'].invalid && (angForm1.controls['quotation_date'].dirty || angForm1.controls['quotation_date'].touched)" class="alert alert-danger ">
+                      <div *ngIf="angForm1.controls['quotation_date'].errors.required" >
+                        Quotation Date is required.
+                      </div>
+                  </div>
+
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Quotation Description:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="quotation_description" #quotation_description />
+                      </div>
+                      <label class="col-sm-2 col-form-label">Quotation Attachment:</label>
+                      <div class="col-sm-4">
+                          <input type="file"  class="form-control" formControlName="quotation_attachment" #quotation_attachment />
+                      </div>
+                  </div>
+  
+                    <input type="hidden"  class="form-control" value="Inhouse_Quotation" #ticket_status1  />
+                    <input type="hidden"  class="form-control"  value="Inhouse_Quotation"  #job_status1/>
+                            
+                    <input type="hidden"  class="form-control" formControlName="ticket_no1" value="" #ticket_no1/>
+                    
+  
+                    <div class="form-group row form-control-sm">
+                      <div class="col-sm-9"></div>  
+                      <div class="col-sm-3">
+                        <button (click)="UpdateTicketQuotation(ticket_status1.value, ticket_no1.value);UpdateJobQuotation(quotation_no.value, quotation_refNo.value, quotation_amount.value, quotation_date.value, quotation_description.value, quotation_attachment.value, job_status1.value)"  [disabled]="angForm1.pristine || angForm1.invalid" class="btn btn-primary">Save</button>
+                      </div>
+                    </div>
+  
+              </form>
+          </div>
+        </div><br/>
+    </div>
+  
+
+    <div id="approval" class="container tab-pane fade"><br>
+      <h4>Approval Information</h4>
+      <div class="card">
+        <div class="card-body" >
+            <form [formGroup]="angForm2" novalidate>
+                <div class="form-group row form-control-sm" >
+                    <div class="col-sm-1"></div>
+                    <label class="col-sm-3 col-form-label">Quotation No:</label>
+                    <div class="col-sm-4">
+                      <input type="text"  class="form-control" formControlName="quotation_no2" #quotation_no2  readonly/>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div class="form-group row form-control-sm" >
+                    <div class="col-sm-1"></div>
+                    <label class="col-sm-3 col-form-label">Approved Date:</label>
+                    <div class="col-sm-4">
+                      <input type="date"  class="form-control" formControlName="quotation_approved_date" #quotation_approved_date />
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div><br/>
+                <div class="form-group form-control-sm" *ngIf="angForm2.controls['quotation_approved_date'].invalid && (angForm2.controls['quotation_approved_date'].dirty || angForm2.controls['quotation_approved_date'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm2.controls['quotation_approved_date'].errors.required" >
+                      Quotation Approved Date is required.
+                    </div>
+                  </div>
+
+                  <div class="form-group row form-control-sm" >
+                    <div class="col-sm-1"></div>
+                    <label class="col-sm-3 col-form-label">Approved By:</label>
+                    <div class="col-sm-4">
+                      <input type="text"  class="form-control" formControlName="quotation_approvedBy" #quotation_approvedBy (keyup)="searchEmployee(quotation_approvedBy.value)"/>
+                    </div>
+
+                    <div class="col-sm-3"  *ngFor="let employee of emp" class="alert alert-info ">{{employee.employee_name}} - {{employee.designation}} <br/> {{employee.employee_branch}} </div>
+                   
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm2.controls['quotation_approvedBy'].invalid && (angForm2.controls['quotation_approvedBy'].dirty || angForm2.controls['quotation_approvedBy'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm2.controls['quotation_approvedBy'].errors.required" >
+                    Quotation Approved Officer is required.
+                  </div>
+                </div>
+
+                  <input type="hidden"  class="form-control" value="Inhouse_Quotation_Approval" #ticket_status2  />
+                  <input type="hidden"  class="form-control"  value="Inhouse_Quotation_Approval"  #job_status2/>
+                          
+                  <input type="hidden"  class="form-control" formControlName="ticket_no2" value="" #ticket_no2/>
+                  
+                  <br/><br/><br/>
+                  <div class="form-group row form-control-sm">
+                    <div class="col-sm-9"></div>  
+                    <div class="col-sm-3">
+                      <button (click)="UpdateTicketApproval(ticket_status2.value, ticket_no2.value);UpdateJobApproval(quotation_no2.value, quotation_approved_date.value,quotation_approvedBy.value, job_status2.value)"  [disabled]="angForm2.pristine || angForm2.invalid" class="btn btn-primary">Approve</button>
+                    </div>
+                  </div>
+
+            </form>
+        </div>
+      </div><br/>
+    </div>
+
+
+
+    <div id="payment" class="container tab-pane fade"><br>
+      <h4>Payment Information</h4>
+      <div class="card">
+          <div class="card-body" >
+              <form [formGroup]="angForm3" novalidate>
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Quotation No:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="quotation_no3" #quotation_no3  readonly/>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Bill No:</label>
+                      <div class="col-sm-4">
+                          <input type="text"  class="form-control" formControlName="bill_no" #bill_no />
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm3.controls['bill_no'].invalid && (angForm3.controls['bill_no'].dirty || angForm3.controls['bill_no'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm3.controls['bill_no'].errors.required" >
+                      Bill No is required.
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Payment Amount:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="payment_amount" #payment_amount />
+                      </div>
+                      <label class="col-sm-2 col-form-label">Payment Date:</label>
+                      <div class="col-sm-4">
+                          <input type="date"  class="form-control" formControlName="payment_date" #payment_date />
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm3.controls['payment_amount'].invalid && (angForm3.controls['payment_amount'].dirty || angForm3.controls['payment_amount'].touched)" class="alert alert-danger ">
+                      <div *ngIf="angForm3.controls['payment_amount'].errors.required" >
+                        Payment Amount is required.
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm3.controls['payment_date'].invalid && (angForm3.controls['payment_date'].dirty || angForm3.controls['payment_date'].touched)" class="alert alert-danger ">
+                      <div *ngIf="angForm3.controls['payment_date'].errors.required" >
+                        Payment Date is required.
+                      </div>
+                  </div>
+
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-2 col-form-label">Payment Description:</label>
+                      <div class="col-sm-4">
+                        <input type="text"  class="form-control" formControlName="payment_description" #payment_description />
+                      </div>
+                      <label class="col-sm-2 col-form-label">Payment Attachment:</label>
+                      <div class="col-sm-4">
+                          <input type="file"  class="form-control" formControlName="payment_attachment" #payment_attachment />
+                      </div>
+                  </div>
+  
+                    <input type="hidden"  class="form-control" value="Inhouse_Payment" #ticket_status3  />
+                    <input type="hidden"  class="form-control"  value="Inhouse_Payment"  #job_status3/>
+                            
+                    <input type="hidden"  class="form-control" formControlName="ticket_no3" value="" #ticket_no3/>
+                    
+  
+                    <div class="form-group row form-control-sm">
+                      <div class="col-sm-9"></div>  
+                      <div class="col-sm-3">
+                        <button (click)="UpdateTicketPayment(ticket_status3.value, ticket_no3.value);UpdateJobPayment(quotation_no3.value, bill_no.value, payment_amount.value, payment_date.value, payment_description.value, payment_attachment.value, job_status3.value)"  [disabled]="angForm3.pristine || angForm3.invalid" class="btn btn-primary">Save</button>
+                      </div>
+                    </div>
+  
+              </form>
+          </div>
+        </div><br/>
+    </div>
+
+
+    <div id="close" class="container tab-pane fade"><br>
+      <h4>Close Job</h4>
+      <div class="card">
+        <div class="card-body" >
+            <form [formGroup]="angForm4" novalidate>
+
+
+                <div class="form-group row form-control-sm" >
+                    <div class="col-sm-1"></div>
+                    <label class="col-sm-4 col-form-label">Comment:</label>
+                    <div class="col-sm-6">
+                      <textarea class="form-control" formControlName="inhouse_closing_comment" #inhouse_closing_comment ></textarea>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div><br/>
+                <div class="form-group form-control-sm" *ngIf="angForm4.controls['inhouse_closing_comment'].invalid && (angForm4.controls['inhouse_closing_comment'].dirty || angForm4.controls['inhouse_closing_comment'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm4.controls['inhouse_closing_comment'].errors.required" >
+                      Comment is required.
+                    </div>
+                  </div>
+
+                  <input type="hidden"  class="form-control" value="Close_Job" #ticket_status4  />
+                  <input type="hidden"  class="form-control"  value="Close_Job"  #job_status4/>
+                          
+                  <input type="hidden"  class="form-control" formControlName="ticket_no4" value="" #ticket_no4/>
+                  
+
+                  <div class="form-group row form-control-sm">
+                    <div class="col-sm-9"></div>  
+                    <div class="col-sm-3">
+                      <button (click)="UpdateTicketInhouseClose(ticket_status4.value, ticket_no4.value);UpdateJobInhouseClose(inhouse_closing_comment.value, job_status4.value)"  [disabled]="angForm4.pristine || angForm4.invalid" class="btn btn-primary">Close Job</button>
+                    </div>
+                  </div>
+
+            </form>
+        </div>
+      </div><br/>
+    </div>
+
+  </div>
+</div>
+
+

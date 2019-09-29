@@ -1,0 +1,209 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>ICT Location</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Location Code:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="location_code" #location_code (onblur)="getLocationCode()" readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Location Name:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="location_name" #location_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['location_name'].invalid && (angForm.controls['location_name'].dirty || angForm.controls['location_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['location_name'].errors.required" >
+                      Location Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                      <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #location_status />
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="addLocation(location_code.value, location_name.value, location_status.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+
+        <br/>
+
+        <h4>Branch Location</h4>
+
+        <div class="card">
+            <div class="card-body">
+              <form [formGroup]="angForm1" novalidate>
+                  <div class="form-group row form-control-sm">
+                      <label class="col-sm-4 col-form-label">Branch ID:</label>
+                      <div class="col-sm-8" >
+                        <input type="text"  class="form-control" formControlName="branch_id" #branch_id (onblur)="getBranchId()" readonly/>
+                      </div>
+                  </div>
+                  <div class="form-group row form-control-sm" >
+                      <label class="col-sm-4 col-form-label">Branch Name:</label>
+                      <div class="col-sm-8">
+                        <input type="text"  class="form-control" formControlName="branch_name" #branch_name />
+                      </div>
+                  </div>
+                  <div class="form-group form-control-sm" *ngIf="angForm1.controls['branch_name'].invalid && (angForm1.controls['branch_name'].dirty || angForm1.controls['branch_name'].touched)" class="alert alert-danger ">
+                      <div *ngIf="angForm1.controls['branch_name'].errors.required" >
+                        Branch Name is required.
+                      </div>
+                  </div>
+                  <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Branch Code:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="branch_code" #branch_code />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm1.controls['branch_code'].invalid && (angForm1.controls['branch_code'].dirty || angForm1.controls['branch_code'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm1.controls['branch_code'].errors.required" >
+                      Branch Code is required.
+                    </div>
+                </div>
+                  <div class="form-group row form-control-sm">
+                      <label class="col-sm-4 col-form-label">Status:</label>
+                      <div class="col-sm-8">
+                        <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #branch_status />
+                      </div>
+                  </div>
+                  <div class="form-group row form-control-sm">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-3">
+                      <button type="reset" class="btn btn-primary">RESET</button>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3">
+                      <button (click)="addBranch(branch_id.value, branch_name.value, branch_code.value, branch_status.value)" [disabled]="angForm1.pristine || angForm1.invalid" class="btn btn-primary">SAVE</button>
+                    </div>
+                  </div>
+                
+                </form>
+            </div>
+          </div>
+      
+
+    </div>
+  
+    <div class="col-sm-7 " >
+        <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search ICT Location</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageLocation(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageLocation(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPageLocation(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageLocation(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageLocation(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>Location Code</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let location of pagedItems">
+                          <td>{{ location.location_code }}</td>
+                          <td>{{ location.location_name }}</td>
+                          <td>{{ location.location_status }}</td>
+                          <td><a  [routerLink]="['/location/edit', location._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+
+          <br/>
+          <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Branch Location</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager1.pages && pager1.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageBranch(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageBranch(pager1.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager1.pages" [ngClass]="{active:pager1.currentPage === page}">
+                    <a (click)="setPageBranch(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageBranch(pager1.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageBranch(pager1.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Branch Name</th>
+                        <th>Branch Code</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let branch of pagedItems1">
+                          <td>{{ branch.branch_id }}</td>
+                          <td>{{ branch.branch_name }}</td>
+                          <td>{{ branch.branch_code }}</td>
+                          <td>{{ branch.branch_status }}</td>
+                          <td><a  [routerLink]="['/location/branch/edit', branch._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+
+
+    </div>
+      
+      
+</div>
+

@@ -1,0 +1,93 @@
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Log Information</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Log Type:</label>
+                    <div class="col-sm-8" >
+                      <select class="form-control" formControlName="log_type" #log_type (change)="showLogID(log_type.value)">
+                        <option value="" selected >Select Log Type</option>
+                        <option value="Database" >Database Log</option>
+                        <option  value="CCTV" >CCTV Log</option>
+                        <option  value="Finger" >Finger Acess Log</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['log_type'].invalid && (angForm.controls['log_type'].dirty || angForm.controls['log_type'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['log_type'].errors.required" >
+                    Log Type is required.
+                  </div>
+              </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Log ID:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="log_id" #log_id readonly/>
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['log_id'].invalid && (angForm.controls['log_id'].dirty || angForm.controls['log_id'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['log_id'].errors.required" >
+                      Log ID is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Log Date:</label>
+                  <div class="col-sm-8">
+                    <input type="date"  class="form-control" formControlName="log_date" #log_date />
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm.controls['log_date'].invalid && (angForm.controls['log_date'].dirty || angForm.controls['log_date'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm.controls['log_date'].errors.required" >
+                    Log Date is required.
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Log Status:</label>
+                <div class="col-sm-8">
+                  <select class="form-control" formControlName="log_status" #log_status >
+                    <option value="" selected >Select Log Type</option>
+                    <option value="Normal" >Normal</option>
+                    <option  value="Risk" >Risk</option>
+                    <option  value="Warning" >Warning</option>
+                    
+                  </select>
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm.controls['log_status'].invalid && (angForm.controls['log_status'].dirty || angForm.controls['log_status'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm.controls['log_status'].errors.required" >
+                  Log Status is required.
+                </div>
+            </div>
+            <div class="form-group row form-control-sm" >
+              <label class="col-sm-4 col-form-label">Comment:</label>
+              <div class="col-sm-8">
+                <textarea class="form-control" formControlName="log_comment" #log_comment ></textarea>
+              </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm.controls['log_comment'].invalid && (angForm.controls['log_comment'].dirty || angForm.controls['log_comment'].touched)" class="alert alert-danger ">
+              <div *ngIf="angForm.controls['log_comment'].errors.required" >
+                Log Comment is required.
+              </div>
+          </div><br/><br/>
+            
+          <div class="form-group row form-control-sm">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+              <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+              <button (click)="addLog(log_type.value, log_id.value, log_date.value, log_status.value, log_comment.value )" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+            </div>
+          </div>
+              
+              </form>
+          </div>
+        </div>
+
+    
+
+    </div>

@@ -1,0 +1,51 @@
+<br/>
+
+<h4 align="center" *ngFor="let ticData of ticketDetail;">Jobs for Ticket No: {{ticData.ticket_no}}</h4>
+
+<div class="card">
+  <div class="card-body" >
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th>Job No</th>
+                <th>Repairing  Method</th>
+                <th>Job Created Date</th>
+                <th>Job Status</th>
+                <th>View</th>
+            </tr>
+          </thead>
+          
+          
+          <tbody>
+              <tr *ngFor="let Jlist of JobList; let i = index">
+                  
+                  <td>{{i+1}}</td>
+                  <td>{{ Jlist.jobNo }}</td>
+                  <td>{{ Jlist.repairing_method }}</td>
+                  <td>{{ display(Jlist.job_create_date) }}</td>     
+                  <td>{{ Jlist.job_status }}</td>
+                  <ng-container *ngIf="Jlist.repairing_method=='Vendor'">
+                      <td ><a  [routerLink]="['/job/viewJob', Jlist._id]" >View</a></td>
+                  </ng-container>
+                  <ng-container *ngIf="Jlist.repairing_method=='Inhouse'">
+                      <td ><a  [routerLink]="['/job/viewJobInhouse', Jlist._id]" >View</a></td>
+                  </ng-container>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+
+<br/>
+<div [hidden]="!jobStatus" >
+  <div *ngFor="let ticData of ticketDetail" >
+    
+  <button [routerLink]="['/ticketReceived/view',ticData._id]" class="btn btn-primary">New Job</button>&nbsp;&nbsp;&nbsp;
+  <button [routerLink]="['/ticketClosed/view',ticData._id]" class="btn btn-primary">Close Ticket</button>
+</div>
+</div>
+
+

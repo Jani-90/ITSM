@@ -1,0 +1,208 @@
+<br/>
+<div class="row">
+    <div class="col-sm-5">
+        <h4>Asset Make By</h4>
+
+      <div class="card">
+          <div class="card-body">
+            <form [formGroup]="angForm" novalidate>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Asset Make ID:</label>
+                    <div class="col-sm-8" >
+                      <input type="text"  class="form-control" formControlName="make_id" #make_id (onblur)="getMakeCode()" readonly/>
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm" >
+                    <label class="col-sm-4 col-form-label">Make Name:</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" formControlName="make_name" #make_name />
+                    </div>
+                </div>
+                <div class="form-group form-control-sm" *ngIf="angForm.controls['make_name'].invalid && (angForm.controls['make_name'].dirty || angForm.controls['make_name'].touched)" class="alert alert-danger ">
+                    <div *ngIf="angForm.controls['make_name'].errors.required" >
+                      Make Name is required.
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                    <label class="col-sm-4 col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                      <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #make_status />
+                    </div>
+                </div>
+                <div class="form-group row form-control-sm">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-3">
+                    <button type="reset" class="btn btn-primary">RESET</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <button (click)="addMake(make_id.value, make_name.value, make_status.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">SAVE</button>
+                  </div>
+                </div>
+              
+              </form>
+          </div>
+        </div>
+      
+      <br/>
+
+      <h4>Asset Model</h4>
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="angForm1" novalidate>
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Asset Model ID:</label>
+                  <div class="col-sm-8" >
+                    <input type="text"  class="form-control" formControlName="model_id" #model_id  (onblur)="getModelCode()" readonly/>
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                  <label class="col-sm-4 col-form-label">Make Name:</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" formControlName="model_make_name" #model_make_name >
+                        <option  value="" selected >Select Make Name</option>
+                        <option *ngFor="let makeName of makes" value={{makeName.make_name}}>
+                                {{ makeName.make_name }}
+                        </option>
+
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group form-control-sm" *ngIf="angForm1.controls['model_make_name'].invalid && (angForm1.controls['model_make_name'].dirty || angForm1.controls['model_make_name'].touched)" class="alert alert-danger ">
+                  <div *ngIf="angForm1.controls['model_make_name'].errors.required" >
+                    Make Name is required.
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm" >
+                <label class="col-sm-4 col-form-label">Model Name:</label>
+                <div class="col-sm-8">
+                  <input type="text"  class="form-control" formControlName="model_name" #model_name />
+                </div>
+            </div>
+            <div class="form-group form-control-sm" *ngIf="angForm1.controls['model_name'].invalid && (angForm1.controls['model_name'].dirty || angForm1.controls['model_name'].touched)" class="alert alert-danger ">
+                <div *ngIf="angForm1.controls['model_name'].errors.required" >
+                  Model Name is required.
+                </div>
+            </div>
+              <div class="form-group row form-control-sm">
+                  <label class="col-sm-4 col-form-label">Status:</label>
+                  <div class="col-sm-8">
+                    <input type="text" readonly class="form-control-plaintext" value ="ACTIVE"  #model_status />
+                  </div>
+              </div>
+              <div class="form-group row form-control-sm">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                  <button type="reset" class="btn btn-primary">RESET</button>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                  <button (click)="addModel(model_id.value, model_make_name.value, model_name.value, model_status.value)" [disabled]="angForm1.pristine || angForm1.invalid" class="btn btn-primary">SAVE</button>
+                </div>
+              </div>
+            
+            </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-7 " >
+        <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Asset Make</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageMake(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPageMake(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPageMake(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageMake(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPageMake(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>Make ID</th>
+                        <th>Make Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let make of pagedItems">
+                          <td>{{ make.make_id }}</td>
+                          <td>{{ make.make_name }}</td>
+                          <td>{{ make.make_status }}</td>
+                          <td><a  [routerLink]="['/makemodel/edit', make._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body" style="background-color:#dfeefd">
+              <h4>Search Asset Model</h4><br/>
+ 
+            <!-- pager -->
+            <ul *ngIf="pager1.pages && pager1.pages.length" class="pagination">
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageModel(1)">First</a>
+                </li>
+                <li class="page-link" [ngClass]="{disabled:pager1.currentPage === 1}">
+                    <a (click)="setPageModel(pager1.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-link" *ngFor="let page of pager1.pages" [ngClass]="{active:pager1.currentPage === page}">
+                    <a (click)="setPageModel(page)">{{page}}</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageModel(pager1.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-link"  [ngClass]="{disabled:pager1.currentPage === pager1.totalPages}">
+                    <a (click)="setPageModel(pager1.totalPages)">Last</a>
+                </li>
+            </ul>
+        
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>Model ID</th>
+                        <th>Model Name</th>
+                        <th>Make Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                      <tr *ngFor="let model of pagedItems1">
+                          <td>{{ model.model_id }}</td>
+                          <td>{{ model.model_name }}</td>
+                          <td>{{ model.model_make_name }}</td>
+                          <td>{{ model.model_status }}</td>
+                          <td><a  [routerLink]="['/makemodel/model/edit', model._id]" >Edit</a></td>
+                          
+                      </tr>
+                  </tbody>
+                </table>
+                
+            </div>
+          </div>
+    </div>
+      
+      
+</div>

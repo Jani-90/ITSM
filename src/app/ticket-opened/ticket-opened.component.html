@@ -1,0 +1,42 @@
+<br/>
+
+<h4>Ticket Opened</h4>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+          <th>#</th>
+          <th>Ticket No</th>
+          <th>Asset Serial</th>
+          <th>Sending Branch</th>
+          <th>Sender</th>
+          <th>Assignee</th>
+          <th>Ticket Status</th>
+          <th>View</th>
+      </tr>
+    </thead>
+    
+    
+    <tbody>
+        <tr *ngFor="let OTickets of openTickets; let i = index">
+            
+            <td>{{i+1}}</td>
+            <td>{{ OTickets.ticket_no }}</td>
+            <td>{{ OTickets.asset_serial }}</td>
+            <td>{{ OTickets.ticket_branch }}</td>
+            <!--<td *ngFor="let SubTickEmp of emp3[i]">{{ SubTickEmp.employee_name }}</td>-->
+            
+            <!--<td *ngFor="let SubTickEmp of empName1">{{ SubTickEmp.employee_name }}</td>-->
+            <td>{{OTickets.sender_name}}</td>
+            <td>{{OTickets.received_by_name}}</td>
+            
+            <td>{{ OTickets.ticket_status }}</td>
+            <td><a  [routerLink]="['/job/view', OTickets.ticket_no]" >View</a></td>
+          
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+
